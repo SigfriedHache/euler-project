@@ -1,4 +1,5 @@
 """
+https://projecteuler.net/problem=1
 If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9.
 The sum of these multiples is 23.
 
@@ -12,10 +13,20 @@ from Common.Sum import sum_1_to_n
 PERFORMANCE_RUNS = 1_000_000
 
 
+def fastest(n: int = 1000) -> int:
+    """
+    O(1) algorithm that solves the problem statement above
+    --> benchmark: 1174 ns/run
+    :param n: The high-side boundary (exclusive) of the summation
+    :return: The resultant sum
+    """
+    return analytic(n)
+
+
 def generative(n: int = 1000) -> int:
     """
     O(n) algorithm that solves the problem statement above
-    --> benchmark: 113.204ms/run
+    --> benchmark: 113204 ns/run
     :param n: The high-side boundary of the summation
     :return: The resultant sum
     """
@@ -35,7 +46,7 @@ def generative(n: int = 1000) -> int:
 def analytic(n: int = 1000) -> int:
     """
     O(1) algorithm that solves the problem statement above
-    --> benchmark: 1.174ms/run
+    --> benchmark: 1174 ns/run
     :param n: The high-side boundary of the summation
     :return: The resultant sum
     """
