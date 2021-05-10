@@ -61,5 +61,5 @@ if __name__ == "__main__":
     generative_delta = perf_counter_ns() - start
 
     # Print the results
-    logger.info(f"Analytic answer:   {analytic()}  in  {int(analytic_delta/PERFORMANCE_RUNS)} ns")
-    logger.info(f"Generative answer: {generative()}  in  {int(generative_delta/PERFORMANCE_RUNS)} ns")
+    logger.info(f"Analytic answer:   {analytic()}  in  {int(analytic_delta/PERFORMANCE_RUNS)} ns/run")
+    logger.info(f"Generative answer: {generative()}  in  {int(generative_delta/PERFORMANCE_RUNS)} ns/run")
