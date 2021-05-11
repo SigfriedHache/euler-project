@@ -5,15 +5,14 @@ The prime factors of 13195 are 5, 7, 13 and 29.
 What is the largest prime factor of the number 600851475143 ?
 """
 
-from time import perf_counter_ns
-
 from numpy import sqrt
 
 from Common.Logger import get_logger, init_logger
 from Common.Primes import sieve_of_atkin
+from Common.Utilities import performance_run
 
 NUMBER = 600_851_475_143
-PERFORMANCE_RUNS = 1
+PERFORMANCE_RUNS = 1000
 
 
 def fastest(number: int = NUMBER) -> int:
@@ -65,17 +64,10 @@ if __name__ == "__main__":
     init_logger()
     logger = get_logger()
 
-    # Performance run for bottom-up method
-    start = perf_counter_ns()
-    for run in range(PERFORMANCE_RUNS):
-        reduction()
-    reduction_delta = perf_counter_ns() - start
+    # Performance run for the analytic solution
+    logger.info(f"The {reduction.__name__}'s evaluation is {reduction()}")
+    performance_run(reduction, iterations=PERFORMANCE_RUNS)()
 
-    # Performance run for top-down method
-    start = perf_counter_ns()
-    for run in range(PERFORMANCE_RUNS):
-        cached_sieve()
-    cached_sieve_delta = perf_counter_ns() - start
-
-    logger.info(f"Reduction answer:    {reduction()}  in  {int(reduction_delta/PERFORMANCE_RUNS)} ns/run")
-    logger.info(f"Cached-sieve answer: {cached_sieve()}  in  {int(cached_sieve_delta/PERFORMANCE_RUNS)} ns/run")
+    # Performance run for the generative solution
+    logger.info(f"The {cached_sieve.__name__}'s evaluation is {cached_sieve()}")
+    performance_run(cached_sieve, iterations=PERFORMANCE_RUNS)()

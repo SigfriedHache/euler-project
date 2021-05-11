@@ -1,6 +1,6 @@
 from logging import Formatter, getLogger, INFO, Logger, StreamHandler
 
-FORMATTER_STRING = "%(filename)s %(message)s"
+FORMATTER_STRING = "%(message)s"
 LOGGER_NAME = "Euler Project Logger"
 
 

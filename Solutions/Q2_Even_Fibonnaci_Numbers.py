@@ -9,10 +9,10 @@ By considering the terms in the Fibonacci sequence whose values do not exceed fo
 find the sum of the even-valued terms.
 """
 
-from time import perf_counter_ns
 from functools import lru_cache
 
 from Common.Logger import get_logger, init_logger
+from Common.Utilities import performance_run
 
 FIBONACCI_MAX = 4_000_000
 FIBONACCI_SEED = (1, 2)
@@ -87,16 +87,9 @@ if __name__ == "__main__":
     logger = get_logger()
 
     # Performance run for generative method
-    start = perf_counter_ns()
-    for run in range(PERFORMANCE_RUNS):
-        generative()
-    generative_delta = perf_counter_ns() - start
+    logger.info(f"The {generative.__name__}'s evaluation is {generative()}")
+    performance_run(generative, iterations=PERFORMANCE_RUNS)()
 
     # Performance run for method that uses fib getter w/ caching
-    start = perf_counter_ns()
-    for run in range(PERFORMANCE_RUNS):
-        caching()
-    gwc_delta = perf_counter_ns() - start
-
-    logger.info(f"Generative answer:     {generative()}  in  {int(generative_delta/PERFORMANCE_RUNS)} ns/run")
-    logger.info(f"Fib getter w/ caching: {caching()}  in  {int(gwc_delta/PERFORMANCE_RUNS)} ns/run")
+    logger.info(f"The {caching.__name__}'s evaluation is {caching()}")
+    performance_run(caching, iterations=PERFORMANCE_RUNS)()

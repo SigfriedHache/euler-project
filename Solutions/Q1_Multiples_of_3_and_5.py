@@ -5,10 +5,10 @@ The sum of these multiples is 23.
 
 Find the sum of all the multiples of 3 or 5 below 1000.
 """
-from time import perf_counter_ns
 
 from Common.Logger import get_logger, init_logger
 from Common.Sum import sum_1_to_n
+from Common.Utilities import performance_run
 
 PERFORMANCE_RUNS = 1_000_000
 
@@ -60,17 +60,9 @@ if __name__ == "__main__":
     logger = get_logger()
 
     # Performance run for the analytic solution
-    start = perf_counter_ns()
-    for run in range(PERFORMANCE_RUNS):
-        analytic()
-    analytic_delta = perf_counter_ns() - start
+    logger.info(f"The {analytic.__name__}'s evaluation is {analytic()}")
+    performance_run(analytic, iterations=PERFORMANCE_RUNS)()
 
     # Performance run for the generative solution
-    start = perf_counter_ns()
-    for run in range(PERFORMANCE_RUNS):
-        generative()
-    generative_delta = perf_counter_ns() - start
-
-    # Print the results
-    logger.info(f"Analytic answer:   {analytic()}  in  {int(analytic_delta/PERFORMANCE_RUNS)} ns/run")
-    logger.info(f"Generative answer: {generative()}  in  {int(generative_delta/PERFORMANCE_RUNS)} ns/run")
+    logger.info(f"The {generative.__name__}'s evaluation is {generative()}")
+    performance_run(generative, iterations=PERFORMANCE_RUNS)()
