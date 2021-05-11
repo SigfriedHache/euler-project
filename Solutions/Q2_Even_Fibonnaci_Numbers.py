@@ -86,10 +86,6 @@ if __name__ == "__main__":
     init_logger()
     logger = get_logger()
 
-    # Performance run for generative method
-    logger.info(f"The {generative.__name__}'s evaluation is {generative()}")
+    # Performance run for generative method and fib-getter w/ caching method
     performance_run(generative, iterations=PERFORMANCE_RUNS)()
-
-    # Performance run for method that uses fib getter w/ caching
-    logger.info(f"The {caching.__name__}'s evaluation is {caching()}")
     performance_run(caching, iterations=PERFORMANCE_RUNS)()

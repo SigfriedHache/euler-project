@@ -59,10 +59,6 @@ if __name__ == "__main__":
     init_logger()
     logger = get_logger()
 
-    # Performance run for the analytic solution
-    logger.info(f"The {analytic.__name__}'s evaluation is {analytic()}")
+    # Performance runs for the analytic and generative solutions
     performance_run(analytic, iterations=PERFORMANCE_RUNS)()
-
-    # Performance run for the generative solution
-    logger.info(f"The {generative.__name__}'s evaluation is {generative()}")
     performance_run(generative, iterations=PERFORMANCE_RUNS)()

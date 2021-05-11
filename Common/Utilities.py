@@ -11,11 +11,12 @@ def performance_run(func, iterations: int = ITERATIONS):
 
     @wraps(func)
     def wrapper(*args, **kwargs):
+        logger.info(f"The {func.__name__} function's evaluation is {func(*args, **kwargs)}")
         start = perf_counter_ns()
         for i in range(0, iterations):
             func(*args, **kwargs)
         end = perf_counter_ns()
         run_length = int((end - start) / iterations)
-        logger.info(f"{func.__name__} took a mean duration of {run_length} ns in each of {iterations} runs")
+        logger.info(f"The {func.__name__} function took a mean duration of {run_length} ns in each of {iterations} runs")
 
     return wrapper

@@ -46,7 +46,8 @@ def cached_sieve(number: int = NUMBER) -> int:
     primes up to sqrt(number). It then works its way backward in the list to see what the first prime factor is. The
     Primes library utilizes functools.lru_caching to avoid having to repeat calculations at runtime, so that skews the
     performance of this algorithm. Checking only once takes ~50x longer than each additional check.
-    For fastest(), we'll select the method of reduction due to this behavior. Long live the cache.
+    For fastest(), we'll select the method of reduction due to this behavior, as I don't really care to more-permanently
+    cache a long list of primes. That said, long live the cache.
     --> benchmark:   9038529 ns/run (over 1000 runs)
     --> benchmark: 463035900 ns/run (over 1 run)
     :param number: The number which this function will find the greatest prime factor
@@ -64,10 +65,6 @@ if __name__ == "__main__":
     init_logger()
     logger = get_logger()
 
-    # Performance run for the analytic solution
-    logger.info(f"The {reduction.__name__}'s evaluation is {reduction()}")
+    # Performance run for the reductive "bottoms-up" solution and cached sieve "top-down" solution
     performance_run(reduction, iterations=PERFORMANCE_RUNS)()
-
-    # Performance run for the generative solution
-    logger.info(f"The {cached_sieve.__name__}'s evaluation is {cached_sieve()}")
     performance_run(cached_sieve, iterations=PERFORMANCE_RUNS)()
