@@ -5,7 +5,7 @@ LOGGER_NAME = "Euler Project Logger"
 
 
 def init_logger(logging_level: int = INFO):
-    """ This function initializes the logging for this project, if it doesn't already exist """
+    """ This function initializes the logging for this project, if and only if it doesn't already exist """
     if not len(getLogger(LOGGER_NAME).handlers):
         console_handler = StreamHandler()
         console_handler.setLevel(logging_level)
