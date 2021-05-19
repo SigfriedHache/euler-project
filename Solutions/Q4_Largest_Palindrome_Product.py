@@ -10,7 +10,7 @@ from Common.Logger import get_logger, init_logger
 from Common.Patterns import is_palindrome
 from Common.Utilities import performance_run
 
-PERFORMANCE_RUNS = 1
+PERFORMANCE_RUNS = 100
 
 
 def fastest() -> int:
@@ -19,7 +19,10 @@ def fastest() -> int:
 
 
 def full_search() -> int:
-    """ This algorithm determines the largest palindrome that can be expressed as the product of two 3-digit numbers """
+    """
+    This algorithm determines the largest palindrome that can be expressed as the product of two 3-digit numbers
+    --> benchmark: 19223 ms/run
+    """
     x = 999
     y = 999
     floor = 836  # the largest square palindrome is 836**2 = 698896, set as a floor
@@ -40,4 +43,4 @@ if __name__ == "__main__":
     logger = get_logger()
 
     # Performance run
-    performance_run(full_search)()
+    performance_run(full_search, iterations=PERFORMANCE_RUNS)()

@@ -1,10 +1,33 @@
 from functools import lru_cache
+from typing import List
+from numpy import sqrt, ceil
 
 
 @lru_cache(maxsize=5)
-def sieve_of_atkin(limit: int = 200):
+def sieve_of_atkin(limit: int = 200) -> List[int]:
+    """
+    The Sieve of Atkin is an ages-old algorithm to sift out all primes under a certain maximum limit
+    :param limit: This is the upper boundary for the value of the primes to be calculated
+    :return:
+    """
+    prime_seed = [2, 3, 5, 7]
+    if limit > 10:
+        pass
+    elif limit in (7, 8, 9, 10):
+        return prime_seed[:4]
+    elif limit in (5, 6):
+        return prime_seed[:3]
+    elif limit in (3, 4):
+        return prime_seed[:2]
+    elif limit == 2:
+        return prime_seed[:1]
+    elif limit == 1:
+        return prime_seed[:0]
+    else:
+        raise ValueError(f"The entered value of {limit} is not a positive integer.")
+
     # Initialise the sieve  array with False values
-    sieve = [False] * limit
+    sieve = [False] * (limit + 1)
     sieve[2] ^= True
     sieve[3] ^= True
 
@@ -49,3 +72,27 @@ def sieve_of_atkin(limit: int = 200):
             primes.append(a)
 
     return primes
+
+
+def prime_factorization(number: int) -> List[int]:
+    """
+    This function calculates and returns the prime factorization of an input number. This algorithm doesn't condense
+    factor multiples (e.g. f(number=24) -> [2, 2, 2, 3] and not [2, 3])
+    :param number: The number whose prime factors are to be calculated
+    :return: A list of integer prime factors
+    """
+    if number <= 1:
+        return [number]
+
+    factors_list = []
+    primes_list = sieve_of_atkin(number)
+
+    for prime in primes_list:
+        while number % prime == 0:
+            factors_list += [prime]
+            number /= prime
+
+    if int(number) != 1:
+        raise ArithmeticError(f"The prime factorization for the {number}; the number, {number} != 1")
+    else:
+        return factors_list
