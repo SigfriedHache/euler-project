@@ -7,7 +7,7 @@ What is the largest prime factor of the number 600851475143 ?
 
 from numpy import sqrt
 
-from Common.Logger import get_logger, init_logger
+from Common.Utilities import get_logger, init_logger
 from Common.Primes import sieve_of_atkin
 from Common.Utilities import performance_run
 

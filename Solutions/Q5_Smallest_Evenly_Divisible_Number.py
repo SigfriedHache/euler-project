@@ -6,7 +6,7 @@ What is the smallest positive number that is evenly divisible by all of the numb
 """
 from numpy import prod
 
-from Common.Logger import get_logger, init_logger
+from Common.Utilities import get_logger, init_logger
 from Common.Primes import prime_factorization
 from Common.Utilities import performance_run
 
