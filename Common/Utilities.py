@@ -1,12 +1,32 @@
 from functools import wraps
 from time import perf_counter
 
-from Common.Logger import get_logger
+from Common.Utilities import get_logger
+from logging import Formatter, getLogger, INFO, Logger, StreamHandler
 
-ITERATIONS = 100
+FORMATTER_STRING = "%(message)s"
+LOGGER_NAME = "Euler Project Logger"
+PERFORMANCE_ITERATIONS = 100
 
 
-def performance_run(func, iterations: int = ITERATIONS):
+def init_logger(logging_level: int = INFO):
+    """ This function initializes the logging for this project, if and only if it doesn't already exist """
+    if not len(getLogger(LOGGER_NAME).handlers):
+        console_handler = StreamHandler()
+        console_handler.setLevel(logging_level)
+        console_handler.setFormatter(Formatter(FORMATTER_STRING))
+
+        system_logger = getLogger(LOGGER_NAME)
+        system_logger.setLevel(logging_level)
+        system_logger.addHandler(console_handler)
+
+
+def get_logger() -> Logger:
+    """ This function returns the logger for this project """
+    return getLogger(LOGGER_NAME)
+
+
+def performance_run(func, iterations: int = PERFORMANCE_ITERATIONS):
     """
     :param func:
     :param iterations:
