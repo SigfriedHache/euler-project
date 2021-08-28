@@ -6,7 +6,7 @@ The sum of these multiples is 23.
 Find the sum of all the multiples of 3 or 5 below 1000.
 """
 
-from Common.Utilities import get_logger, init_logger
+from Common.Logger import get_logger, init_logger
 from Common.Sum import sum_1_to_n
 from Common.Utilities import performance_run
 

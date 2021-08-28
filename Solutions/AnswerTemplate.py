@@ -3,7 +3,7 @@ https://projecteuler.net/problem=
 ...
 """
 
-from Common.Utilities import get_logger, init_logger
+from Common.Logger import get_logger, init_logger
 
 PERFORMANCE_RUNS = 1
 

@@ -6,7 +6,7 @@ A palindromic number reads the same both ways. The largest palindrome made from 
 Find the largest palindrome made from the product of two 3-digit numbers.
 """
 
-from Common.Utilities import get_logger, init_logger
+from Common.Logger import get_logger, init_logger
 from Common.Patterns import is_palindrome
 from Common.Utilities import performance_run
 

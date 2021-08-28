@@ -11,7 +11,7 @@ find the sum of the even-valued terms.
 
 from functools import lru_cache
 
-from Common.Utilities import get_logger, init_logger
+from Common.Logger import get_logger, init_logger
 from Common.Utilities import performance_run
 
 FIBONACCI_MAX = 4_000_000
