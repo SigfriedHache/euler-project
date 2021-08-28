@@ -1,6 +1,70 @@
 from functools import lru_cache
 from typing import List
-from numpy import sqrt, ceil
+
+
+@lru_cache(maxsize=5)
+def prime_list(length: int = 1) -> List[int]:
+    """
+    This algorithm returns an array of the first :param length: primes
+    :param length: The number of primes in the list
+    :return: A list of prime numbers, :param length: long
+    """
+    if length < 1:
+        raise ValueError(f"The entered value of {length} is not a natural number (i.e. length >= 1)")
+    elif length == 1:
+        return [2]
+
+
+    # private
+    # void
+    # findPrimes(int
+    # limit) {
+    #     int[]
+    # primes = new
+    # int[100];
+    #
+    # // Special
+    # handling
+    # for the integer '2'
+    # primes[0] = 2;
+    #
+    # // Number of primes encountered
+    # int primeCount = 1;
+    #
+    # // Looping from 3, to the limit
+    # for (int i = 3; i < limit; i++) {
+    # boolean isPrime = true;
+    #
+    # if (i % 2 == 0) {
+    # continue;
+    # }
+    #
+    # for (int j = 0; j < primeCount; j++) {
+    #     if (i % primes[j] == 0) {
+    #     isPrime = false;
+    #     }
+    # }
+    #
+    # // Store
+    # the
+    # prime
+    # number and increment
+    # the
+    # count
+    # if (isPrime)
+    # {
+    # primes[primeCount + +] = i;
+    #
+    # }
+    # }
+    #
+    # // Print
+    # the
+    # primes
+    # for (int x: primes)
+    # if (x != 0)
+    # System.out.print(x + ",");
+    # }
 
 
 @lru_cache(maxsize=5)

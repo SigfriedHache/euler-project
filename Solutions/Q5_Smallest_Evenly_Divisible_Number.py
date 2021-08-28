@@ -11,9 +11,10 @@ from Common.Primes import prime_factorization
 from Common.Utilities import performance_run
 
 PERFORMANCE_RUNS = 100_000
+UPPER_BOUND = 20
 
 
-def fastest(ceiling: int = 20) -> int:
+def fastest(ceiling: int = UPPER_BOUND) -> int:
     """
     This algorithm finds the prime factorization of every number between 1 and ceiling, maintains the greatest counts of
     each prime factor found, and then multiplies them out at the end
@@ -23,7 +24,7 @@ def fastest(ceiling: int = 20) -> int:
     return prime_tally(ceiling)
 
 
-def prime_tally(ceiling: int = 20) -> int:
+def prime_tally(ceiling: int = UPPER_BOUND) -> int:
     """
     This algorithm finds the prime factorization of every number between 1 and ceiling, maintains the greatest counts of
     each prime factor found, and then multiplies them out at the end
