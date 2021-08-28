@@ -2,69 +2,65 @@ from functools import lru_cache
 from typing import List
 
 
+def prime_factorization(number: int) -> List[int]:
+    """
+    This function calculates and returns the prime factorization of an input number. This algorithm doesn't condense
+    factor multiples (e.g. f(number=24) -> [2, 2, 2, 3] and not [2, 3])
+    :param number: The number whose prime factors are to be calculated
+    :return: A list of integer prime factors
+    """
+    if number <= 1:
+        return [number]
+
+    factors_list = []
+    primes_list = sieve_of_atkin(number)
+
+    for prime in primes_list:
+        while number % prime == 0:
+            factors_list += [prime]
+            number /= prime
+
+    if int(number) != 1:
+        raise ArithmeticError(f"The prime factorization for the {number}; the number, {number} != 1")
+    else:
+        return factors_list
+
+
 @lru_cache(maxsize=5)
-def prime_list(length: int = 1) -> List[int]:
+def prime_list(number_of_primes: int = 1) -> List[int]:
     """
     This algorithm returns an array of the first :param length: primes
-    :param length: The number of primes in the list
+    :param number_of_primes: The number of primes in the list
     :return: A list of prime numbers, :param length: long
     """
-    if length < 1:
-        raise ValueError(f"The entered value of {length} is not a natural number (i.e. length >= 1)")
-    elif length == 1:
+
+    # Handle lower-bound edge cases
+    if number_of_primes < 1:
+        raise ValueError(f"The entered value of {number_of_primes} is not a natural number (i.e. length >= 1)")
+    elif number_of_primes == 1:
         return [2]
 
+    primes = [2]
+    prime_count = 1
+    current_number = 3
 
-    # private
-    # void
-    # findPrimes(int
-    # limit) {
-    #     int[]
-    # primes = new
-    # int[100];
-    #
-    # // Special
-    # handling
-    # for the integer '2'
-    # primes[0] = 2;
-    #
-    # // Number of primes encountered
-    # int primeCount = 1;
-    #
-    # // Looping from 3, to the limit
-    # for (int i = 3; i < limit; i++) {
-    # boolean isPrime = true;
-    #
-    # if (i % 2 == 0) {
-    # continue;
-    # }
-    #
-    # for (int j = 0; j < primeCount; j++) {
-    #     if (i % primes[j] == 0) {
-    #     isPrime = false;
-    #     }
-    # }
-    #
-    # // Store
-    # the
-    # prime
-    # number and increment
-    # the
-    # count
-    # if (isPrime)
-    # {
-    # primes[primeCount + +] = i;
-    #
-    # }
-    # }
-    #
-    # // Print
-    # the
-    # primes
-    # for (int x: primes)
-    # if (x != 0)
-    # System.out.print(x + ",");
-    # }
+    while prime_count < number_of_primes:
+        # Check for primeness
+        is_prime = True
+        for p in primes:
+            if current_number % p == 0:
+                is_prime = False
+                break
+
+        # If prime, collect and increment prime_count
+        if is_prime:
+            primes += [current_number]
+            prime_count += 1
+
+        # Increment current number to the next odd number
+        current_number += 2
+
+    return primes
 
 
 @lru_cache(maxsize=5)
@@ -136,27 +132,3 @@ def sieve_of_atkin(limit: int = 200) -> List[int]:
             primes.append(a)
 
     return primes
-
-
-def prime_factorization(number: int) -> List[int]:
-    """
-    This function calculates and returns the prime factorization of an input number. This algorithm doesn't condense
-    factor multiples (e.g. f(number=24) -> [2, 2, 2, 3] and not [2, 3])
-    :param number: The number whose prime factors are to be calculated
-    :return: A list of integer prime factors
-    """
-    if number <= 1:
-        return [number]
-
-    factors_list = []
-    primes_list = sieve_of_atkin(number)
-
-    for prime in primes_list:
-        while number % prime == 0:
-            factors_list += [prime]
-            number /= prime
-
-    if int(number) != 1:
-        raise ArithmeticError(f"The prime factorization for the {number}; the number, {number} != 1")
-    else:
-        return factors_list

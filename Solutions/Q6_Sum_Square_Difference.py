@@ -19,18 +19,8 @@ PERFORMANCE_RUNS = 10_000
 UPPER_BOUND = 100
 
 
-# def fastest(...) -> ...:
-#     """
-#     :return: ...
-#     """
-#     return ...
 def fastest(upper_bound: int = UPPER_BOUND) -> int:
-    """
-    This algorithm finds the prime factorization of every number between 1 and ceiling, maintains the greatest counts of
-    each prime factor found, and then multiplies them out at the end
-    :param upper_bound: The upper bound (inclusive) of the factor for which to find the evenly-divided quotient
-    :return: The quotient evenly-divisible by every number from 1 to ceiling
-    """
+    """ This algorithm returns the difference between the sum of the squares and the square of the sum """
     return analytic(upper_bound)
 
 
