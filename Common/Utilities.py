@@ -21,8 +21,8 @@ def performance_run(func, iterations: int = ITERATIONS):
         for i in range(0, iterations):
             func(*args, **kwargs)
         end = perf_counter()
-        run_length = int(1e6 * (end - start) / iterations)
-        logger.info(f"The {func.__name__} function took a mean duration of {run_length} ms "
+        run_length = 1e3 * (end - start) / iterations
+        logger.info(f"The {func.__name__} function took a mean duration of {round(run_length, 3)} ms "
                     f"for each of {iterations} runs")
 
     return wrapper
