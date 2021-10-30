@@ -2,30 +2,6 @@ from functools import lru_cache
 from typing import List
 
 
-def prime_factorization(number: int) -> List[int]:
-    """
-    This function calculates and returns the prime factorization of an input number. This algorithm doesn't condense
-    factor multiples (e.g. f(number=24) -> [2, 2, 2, 3] and not [2, 3])
-    :param number: The number whose prime factors are to be calculated
-    :return: A list of integer prime factors
-    """
-    if number <= 1:
-        return [number]
-
-    factors_list = []
-    primes_list = sieve_of_atkin(number)
-
-    for prime in primes_list:
-        while number % prime == 0:
-            factors_list += [prime]
-            number /= prime
-
-    if int(number) != 1:
-        raise ArithmeticError(f"The prime factorization for the {number}; the number, {number} != 1")
-    else:
-        return factors_list
-
-
 @lru_cache(maxsize=5)
 def prime_list(number_of_primes: int = 1) -> List[int]:
     """
