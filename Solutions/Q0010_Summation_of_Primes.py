@@ -28,4 +28,5 @@ if __name__ == "__main__":
     logger = get_logger()
 
     # Performance run for fastest
-    performance_run(fastest, iterations=PERFORMANCE_RUNS)()
+    # performance_run(fastest, iterations=PERFORMANCE_RUNS)()
+    print(fastest(PRIME_CEILING))

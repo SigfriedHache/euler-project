@@ -87,5 +87,6 @@ if __name__ == "__main__":
     logger = get_logger()
 
     # Performance run for generative method and fib-getter w/ caching method
-    performance_run(generative, iterations=PERFORMANCE_RUNS)()
-    performance_run(caching, iterations=PERFORMANCE_RUNS)()
+    # performance_run(generative, iterations=PERFORMANCE_RUNS)()
+    # performance_run(caching, iterations=PERFORMANCE_RUNS)()
+    print(fastest(FIBONACCI_MAX))

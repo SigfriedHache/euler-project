@@ -117,5 +117,6 @@ if __name__ == "__main__":
     logger = get_logger()
 
     # Performance run for fastest
-    performance_run(full_parse, iterations=PERFORMANCE_RUNS)()
-    performance_run(chop_and_check, iterations=PERFORMANCE_RUNS)()
+    # performance_run(full_parse, iterations=PERFORMANCE_RUNS)()
+    # performance_run(chop_and_check, iterations=PERFORMANCE_RUNS)()
+    print(fastest(NUMBER, RUN_LENGTH))

@@ -45,4 +45,5 @@ if __name__ == "__main__":
     init_logger()
     logger = get_logger()
 
-    performance_run(analytic, iterations=PERFORMANCE_RUNS)()
+    # performance_run(analytic, iterations=PERFORMANCE_RUNS)()
+    print(fastest(UPPER_BOUND))

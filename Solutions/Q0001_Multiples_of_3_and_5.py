@@ -11,9 +11,10 @@ from Common.Sum import sum_1_to_n
 from Common.Utilities import performance_run
 
 PERFORMANCE_RUNS = 1_000_000
+NUMBER = 1_000
 
 
-def fastest(n: int = 1000) -> int:
+def fastest(n: int = NUMBER) -> int:
     """
     O(1) algorithm that solves the problem statement above
     --> benchmark: 1174 ns/run
@@ -23,7 +24,7 @@ def fastest(n: int = 1000) -> int:
     return analytic(n)
 
 
-def generative(n: int = 1000) -> int:
+def generative(n: int = NUMBER) -> int:
     """
     O(n) algorithm that solves the problem statement above
     --> benchmark: 113204 ns/run
@@ -43,7 +44,7 @@ def generative(n: int = 1000) -> int:
     return summation
 
 
-def analytic(n: int = 1000) -> int:
+def analytic(n: int = NUMBER) -> int:
     """
     O(1) algorithm that solves the problem statement above
     --> benchmark: 1174 ns/run
@@ -60,5 +61,6 @@ if __name__ == "__main__":
     logger = get_logger()
 
     # Performance runs for the analytic and generative solutions
-    performance_run(analytic, iterations=PERFORMANCE_RUNS)()
-    performance_run(generative, iterations=PERFORMANCE_RUNS)()
+    # performance_run(analytic, iterations=PERFORMANCE_RUNS)()
+    # performance_run(generative, iterations=PERFORMANCE_RUNS)()
+    print(fastest(NUMBER))

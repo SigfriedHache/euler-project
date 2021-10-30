@@ -43,4 +43,5 @@ if __name__ == "__main__":
     logger = get_logger()
 
     # Performance run
-    performance_run(full_search, iterations=PERFORMANCE_RUNS)()
+    # performance_run(full_search, iterations=PERFORMANCE_RUNS)()
+    print(fastest())

@@ -66,5 +66,6 @@ if __name__ == "__main__":
     logger = get_logger()
 
     # Performance run for the reductive "bottoms-up" solution and cached sieve "top-down" solution
-    performance_run(reduction, iterations=PERFORMANCE_RUNS)()
-    performance_run(cached_sieve, iterations=PERFORMANCE_RUNS)()
+    # performance_run(reduction, iterations=PERFORMANCE_RUNS)()
+    # performance_run(cached_sieve, iterations=PERFORMANCE_RUNS)()
+    print(fastest(NUMBER))

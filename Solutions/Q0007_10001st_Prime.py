@@ -33,4 +33,5 @@ if __name__ == "__main__":
     logger = get_logger()
 
     # Performance run for brute_force
-    performance_run(brute_force, iterations=PERFORMANCE_RUNS)()
+    # performance_run(brute_force, iterations=PERFORMANCE_RUNS)()
+    print(fastest(PRIME_INDEX))

@@ -77,4 +77,5 @@ if __name__ == "__main__":
     logger = get_logger()
 
     # Performance run for fastest
+    performance_run(generative, iterations=PERFORMANCE_RUNS)()
     performance_run(predictive, iterations=PERFORMANCE_RUNS)()
