@@ -12,6 +12,7 @@ from Common.Utilities import performance_run
 
 PERFORMANCE_RUNS = 1_000_000
 DIGITS = 10
+NUM_LENGTH = 50
 NUMBERS = (37107287533902102798797998220837590246510135740250,
            46376937677490009712648124896970078050417018260538,
            74324986199524741059474233309513058123726617309629,
@@ -112,6 +113,7 @@ NUMBERS = (37107287533902102798797998220837590246510135740250,
            72107838435069186155435662884062257473692284509516,
            20849603980134001723930671666823555245252804609722,
            53503534226472524250874054075591789781264330331690)
+LIST_LENGTH = len(NUMBERS)
 
 
 def fastest(number: Tuple[int, ...] = NUMBERS, digits: int = DIGITS) -> int:
@@ -119,17 +121,33 @@ def fastest(number: Tuple[int, ...] = NUMBERS, digits: int = DIGITS) -> int:
     return sum_builtin(number, digits)
 
 
-def sum_builtin(number: Tuple[int, ...] = NUMBERS, digits: int = DIGITS) -> int:
+def sum_builtin(numbers: Tuple[int, ...] = NUMBERS, digits: int = DIGITS) -> int:
     """
     This function utilizes the builtin sum function to add all the numbers in NUMBERS, then returns just the desired
     number of initial digits in the result
-    :param number: this is a tuple of numbers that are to be summed
+    :param numbers: this is a tuple of numbers that are to be summed
     :param digits: this is the desired number of digits that are to be returned
-    :return:
+    :return: result of evaluation
     """
-    resultant = sum(number)
+    resultant = sum(numbers)
     first_digits = str(resultant)[:digits]
     return int(first_digits)
+
+
+def truncate_and_sum(numbers: Tuple[int, ...] = NUMBERS, digits: int = DIGITS,
+                     num_length: int = NUM_LENGTH, list_length: int = LIST_LENGTH) -> int:
+    """
+    This function truncates the numbers in param:number to the right of the most significant impactful number, i.e.
+    which column of number whose sum of all 9's wouldn't impact the final result of the evaluation.
+    :param numbers: this is a tuple of numbers that are to be summed
+    :param digits: this is the desired number of digits that are to be returned
+    :param num_length: this is the maximum length of the digits in the number list
+    :param list_length: this is the length of to-be-summed number list
+    :return: result of evaluation
+    """
+    truncate_digits = num_length - (digits + len(str(9*list_length)))
+    renumbered = tuple(int(str(num)[:truncate_digits]) for num in numbers)
+    return int(str(sum(renumbered))[:digits])
 
 
 if __name__ == "__main__":
@@ -138,4 +156,6 @@ if __name__ == "__main__":
     logger = get_logger()
 
     # Performance run for fastest
-    performance_run(sum_builtin, iterations=PERFORMANCE_RUNS)()
+    # performance_run(truncate_and_sum, iterations=PERFORMANCE_RUNS)()
+    # performance_run(sum_builtin, iterations=PERFORMANCE_RUNS)()
+    performance_run(fastest, iterations=PERFORMANCE_RUNS)()
