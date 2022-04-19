@@ -1,6 +1,6 @@
 from typing import List
 
-import numpy as np
+from numpy import floor, math, sqrt
 
 from Common.Primes import sieve_of_atkin
 
@@ -18,7 +18,7 @@ def divisors(number: int) -> List[int]:
         return [1]
 
     divisor_list = set()
-    sqrt_ceil = int(np.floor(np.sqrt(number)) + 1)
+    sqrt_ceil = int(floor(sqrt(number)) + 1)
     for i in range(1, sqrt_ceil):
         if number % i == 0:
             divisor_list.add(i)
@@ -40,13 +40,24 @@ def prime_factorization(number: int) -> List[int]:
 
     factors_list = []
     primes_list = sieve_of_atkin(number)
-
     for prime in primes_list:
         while number % prime == 0:
             factors_list += [prime]
             number /= prime
 
     if int(number) != 1:
-        raise ArithmeticError(f"The prime factorization for the {number}; the number, {number} != 1")
-    else:
-        return factors_list
+        raise ArithmeticError(f"The prime factorization for the number failed: "
+                              f"{factors_list} with a remainder of {number}.")
+    return factors_list
+
+
+def n_choose_k(n: int, k: int) -> int:
+    """
+    This function implements the analytic solution to the n choose k function: n! / k! (n-k)!
+    :param n: the sample size
+    :param k: the choice size
+    :return: the result of n choose k
+    """
+    if k > n:
+        raise ValueError(f"The condition k <= n, must be upheld. In this instance, {k} <= {n} is {k <= n}.")
+    return int(math.factorial(n) / (math.factorial(k) * math.factorial(n-k)))
