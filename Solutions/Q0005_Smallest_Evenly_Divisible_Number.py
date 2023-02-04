@@ -34,14 +34,14 @@ def prime_tally(ceiling: int = UPPER_BOUND) -> int:
     """
     factorization_merge = []
 
-    for number in range(1, ceiling+1):
+    for number in range(2, ceiling+1):
         number_factorization = prime_factorization(number)
         for factor in set(number_factorization):
             factor_count_difference = number_factorization.count(factor) - factorization_merge.count(factor)
             if factor_count_difference > 0:
-                factorization_merge += [factor] * factor_count_difference
+                factorization_merge = factorization_merge + [factor] * factor_count_difference
 
-    return prod(factorization_merge)
+    return int(prod(factorization_merge))
 
 
 if __name__ == "__main__":

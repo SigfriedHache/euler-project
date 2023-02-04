@@ -10,49 +10,34 @@ from Common.Logger import get_logger, init_logger
 from Common.Sum import sum_1_to_n
 from Common.Utilities import performance_run
 
-PERFORMANCE_RUNS = 1_000_000
+PERFORMANCE_RUNS = 10_000
 NUMBER = 1_000
 
 
-def fastest(n: int = NUMBER) -> int:
-    """
-    O(1) algorithm that solves the problem statement above
-    --> benchmark: 1174 ns/run
-    :param n: The high-side boundary (exclusive) of the summation
-    :return: The resultant sum
-    """
-    return analytic(n)
+def fastest(*args, **kwargs) -> int:
+    return analytic(*args, **kwargs)
 
 
 def generative(n: int = NUMBER) -> int:
     """
     O(n) algorithm that solves the problem statement above
-    --> benchmark: 113204 ns/run
     :param n: The high-side boundary of the summation
     :return: The resultant sum
     """
     summation = 0
-    for i in range(0, n):
-        if i % 15 == 0:
-            summation += i
-        elif i % 5 == 0:
-            summation += i
-        elif i % 3 == 0:
-            summation += i
-        else:
-            pass
+    for num in range(0, n):
+        if num % 3 == 0 or num % 5 == 0:
+            summation = summation + num
     return summation
 
 
 def analytic(n: int = NUMBER) -> int:
     """
-    O(1) algorithm that solves the problem statement above
-    --> benchmark: 1174 ns/run
     :param n: The high-side boundary of the summation
     :return: The resultant sum
     """
-    n -= 1
-    return (3 * sum_1_to_n(int(n/3))) + (5 * sum_1_to_n(int(n/5))) - (15 * sum_1_to_n(int(n/15)))
+    n = n - 1
+    return (3 * sum_1_to_n(n//3)) + (5 * sum_1_to_n(n//5)) - (15 * sum_1_to_n(n//15))
 
 
 if __name__ == "__main__":
@@ -61,6 +46,6 @@ if __name__ == "__main__":
     logger = get_logger()
 
     # Performance runs for the analytic and generative solutions
-    # performance_run(analytic, iterations=PERFORMANCE_RUNS)()
-    # performance_run(generative, iterations=PERFORMANCE_RUNS)()
-    print(fastest(NUMBER))
+    performance_run(generative, iterations=PERFORMANCE_RUNS)()
+    performance_run(analytic, iterations=PERFORMANCE_RUNS)()
+    # print(fastest(NUMBER))

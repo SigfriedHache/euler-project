@@ -34,7 +34,7 @@ def collatz_iter(num: int) -> int:
     :return: the next number in the sequence
     """
     if num % 2:
-        return 3*num + 1
+        return 3 * num + 1
     else:
         return num // 2
 
@@ -59,11 +59,11 @@ def full_crawl(max_num: int = LIMIT) -> int:
     while seed <= max_num:
         sequence = [seed]
         while sequence[-1] != 1:
-            sequence += [collatz_iter(sequence[-1])]
+            sequence = sequence + [collatz_iter(sequence[-1])]
         if len(sequence) > longest_sequence_length:
             longest_sequence_length = len(sequence)
             longest_sequence_seed = seed
-        seed += 1
+        seed = seed + 1
 
     return longest_sequence_seed
 
@@ -83,12 +83,12 @@ def crawl_with_caching_ascending(max_num: int = LIMIT) -> int:
     sequence_lengths = {str(seed): len([seed])}
 
     while seed <= max_num:
-        seed += 1
+        seed = seed + 1
         sequence = [seed]
 
         while sequence[-1] != 1:
             if str(sequence[-1]) not in sequence_lengths:
-                sequence += [collatz_iter(sequence[-1])]
+                sequence = sequence + [collatz_iter(sequence[-1])]
             else:
                 break
 
@@ -118,7 +118,7 @@ def crawl_with_caching_descending(max_num: int = LIMIT) -> int:
 
         while sequence[-1] != 1:
             if str(sequence[-1]) not in sequence_lengths:
-                sequence += [collatz_iter(sequence[-1])]
+                sequence = sequence + [collatz_iter(sequence[-1])]
             else:
                 break
 
@@ -126,7 +126,7 @@ def crawl_with_caching_descending(max_num: int = LIMIT) -> int:
         for i in range(len(sequence) - 1):
             sequence_lengths[str(sequence[i])] = len(sequence[i:]) + right_of_node_length
 
-        seed -= 1
+        seed = seed - 1
 
     return int(max(sequence_lengths, key=sequence_lengths.get))
 

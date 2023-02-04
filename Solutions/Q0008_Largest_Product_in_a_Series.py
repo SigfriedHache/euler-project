@@ -57,9 +57,9 @@ NUMBER = int('73167176531330624919225119674426574742355349194934'
              '71636269561882670428252483600823257530420752963450')
 
 
-def fastest(number: int = NUMBER, run_length: int = RUN_LENGTH) -> int:
+def fastest(*args, **kwargs) -> int:
     """ This returns the largest product of any given run_length-long run in the input number """
-    return full_parse(number, run_length)
+    return chop_and_check(*args, **kwargs)
 
 
 def full_parse(number: int = NUMBER, run_length: int = RUN_LENGTH) -> int:

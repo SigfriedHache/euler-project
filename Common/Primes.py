@@ -1,45 +1,45 @@
 from functools import lru_cache
-from typing import List
+from typing import List, Iterator
 
 
-@lru_cache(maxsize=5)
-def prime_list(number_of_primes: int = 1) -> List[int]:
-    """
-    This algorithm returns an array of the first :param length: primes
-    :param number_of_primes: The number of primes in the list
-    :return: A list of prime numbers, :param length: long
-    """
+LRU_CACHE_MAXSIZE = 2
 
-    # Handle lower-bound edge cases
-    if number_of_primes < 1:
-        raise ValueError(f"The entered value of {number_of_primes} is not a natural number (i.e. length >= 1)")
-    elif number_of_primes == 1:
-        return [2]
 
-    primes = [2]
-    prime_count = 1
+def yield_prime() -> Iterator[int]:
+    primes = {2}
+    yield 2
+
     current_number = 3
-
-    while prime_count < number_of_primes:
-        # Check for primeness
+    while True:
         is_prime = True
         for p in primes:
             if current_number % p == 0:
                 is_prime = False
                 break
 
-        # If prime, collect and increment prime_count
         if is_prime:
-            primes += [current_number]
-            prime_count += 1
+            primes.add(current_number)
+            yield current_number
 
-        # Increment current number to the next odd number
-        current_number += 2
-
-    return primes
+        current_number = current_number + 2
 
 
-@lru_cache(maxsize=5)
+@lru_cache(maxsize=LRU_CACHE_MAXSIZE)
+def prime_list(count: int) -> List[int]:
+    if not isinstance(count, int) or count < 1:
+        raise ArithmeticError(f"{count} is not a valid number of primes to calculate. An int >= 1 is required.")
+
+    return [prime for _, prime in zip(range(count), yield_prime())]
+
+
+def nth_prime(n: int) -> int:
+    if not isinstance(n, int) or n < 1:
+        raise ArithmeticError(f"{n} is not a valid number of primes to calculate. An int >= 1 is required.")
+
+    return prime_list(n)[-1]
+
+
+@lru_cache(maxsize=LRU_CACHE_MAXSIZE)
 def sieve_of_atkin(limit: int = 200) -> List[int]:
     """
     The Sieve of Atkin is an ages-old algorithm to sift out all primes under a certain maximum limit
@@ -68,7 +68,7 @@ def sieve_of_atkin(limit: int = 200) -> List[int]:
     sieve[3] ^= True
 
     """
-    Mark siev[n] is True if one of the following is True:
+    Mark sieve[n] is True if one of the following is True:
     a) n = (4*x*x)+(y*y) has odd number of solutions, i.e., there exist odd number of distinct pairs (x, y) that satisfy
     the equation and n % 12 = 1 or n % 12 = 5.
     b) n = (3*x*x)+(y*y) has odd number of solutions and n % 12 = 7 c) n = (3*x*x)-(y*y) has odd number of solutions, 

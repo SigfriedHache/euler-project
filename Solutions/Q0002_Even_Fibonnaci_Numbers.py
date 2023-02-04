@@ -42,12 +42,12 @@ def generative(max_value: int = FIBONACCI_MAX) -> int:
     # generate the logger
     while (fibonacci_list[i-1] + fibonacci_list[i-2]) < max_value:
         fibonacci_list.append(fibonacci_list[i-1] + fibonacci_list[i-2])
-        i += 1
+        i = i + 1
 
     summation = 0
     for number in fibonacci_list:
         if not number % 2:  # if not odd
-            summation += number
+            summation = summation + number
     return summation
 
 
@@ -75,8 +75,8 @@ def caching(max_value: int = FIBONACCI_MAX) -> int:
     i = 2
 
     while fib(i) < max_value:
-        summation += fib(i)
-        i += 3  # every third fib number is odd! there's an analytic proof somewhere for that...
+        summation = summation + fib(i)
+        i = i + 3  # every third fib number is odd! there's an analytic proof somewhere for that...
 
     return summation
 

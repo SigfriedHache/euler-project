@@ -10,13 +10,13 @@ from Common.Geometry import is_pythagorean_triple
 from Common.Logger import get_logger, init_logger
 from Common.Utilities import performance_run
 
-PERFORMANCE_RUNS = 1_000
+PERFORMANCE_RUNS = 100
 TRIPLET_SUM = 1000
 
 
-def fastest(triplet_sum: int = TRIPLET_SUM) -> int:
+def fastest(*args, **kwargs) -> int:
     """ This algorithm returns the product of the pythagorean triple that sums to 1000 """
-    return full_search(triplet_sum)
+    return full_search(*args, **kwargs)
 
 
 def full_search(triplet_sum: int = TRIPLET_SUM) -> int:
@@ -31,17 +31,17 @@ def full_search(triplet_sum: int = TRIPLET_SUM) -> int:
     """
     # a, b march up, while c marches down
     a = 1
-    a_limit = int(triplet_sum/3) - 1
+    a_limit = (triplet_sum // 3) - 1
     b = 2
     c = triplet_sum - (a + b)
 
     while a < a_limit:
         while b < c:
             if is_pythagorean_triple(a, b, c):
-                return a*b*c
-            b += 1
-            c -= 1
-        a += 1
+                return a * b * c
+            b = b + 1
+            c = c - 1
+        a = a + 1
         b = a + 1
         c = triplet_sum - (a + b)
 

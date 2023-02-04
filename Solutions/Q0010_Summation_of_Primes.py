@@ -13,9 +13,9 @@ PERFORMANCE_RUNS = 1_000
 PRIME_CEILING = 2_000_000
 
 
-def fastest(prime_ceiling: int = PRIME_CEILING) -> int:
+def fastest(*args, **kwargs) -> int:
     """ This is the fastest algorithm that returns the sum of all primes below PRIME_CEILING """
-    return sieve_sum(prime_ceiling)
+    return sieve_sum(*args, **kwargs)
 
 
 def sieve_sum(prime_ceiling: int = PRIME_CEILING) -> int:

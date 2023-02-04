@@ -6,16 +6,16 @@ What is the 10,001st prime number?
 """
 
 from Common.Logger import get_logger, init_logger
-from Common.Primes import prime_list
+from Common.Primes import prime_list, yield_prime
 from Common.Utilities import performance_run
 
-PERFORMANCE_RUNS = 1000
+PERFORMANCE_RUNS = 10
 PRIME_INDEX = 10_001
 
 
-def fastest(prime_index: int = PRIME_INDEX) -> int:
+def fastest(*args, **kwargs) -> int:
     """ This algorithm returns the nth prime """
-    return brute_force(prime_index)
+    return brute_force(*args, **kwargs)
 
 
 def brute_force(prime_index: int = PRIME_INDEX) -> int:
@@ -27,6 +27,19 @@ def brute_force(prime_index: int = PRIME_INDEX) -> int:
     return prime_list(prime_index)[-1]
 
 
+def generator(prime_index: int = PRIME_INDEX) -> int:
+    """
+    This function utilizes the prime generator function from the Primes.py package (i.e. yield_prime()) and loops over
+    until it reaches the desired prime
+    :param prime_index: The index of the prime in question
+    :return: The prime in question
+    """
+    prime_generator = yield_prime()
+    for _ in range(prime_index - 1):
+        next(prime_generator)
+    return int(next(prime_generator))
+
+
 if __name__ == "__main__":
     # Log stuff
     init_logger()
@@ -34,4 +47,5 @@ if __name__ == "__main__":
 
     # Performance run for brute_force
     # performance_run(brute_force, iterations=PERFORMANCE_RUNS)()
+    # performance_run(generator, iterations=PERFORMANCE_RUNS)()
     print(fastest(PRIME_INDEX))

@@ -33,7 +33,7 @@ def analytic(upper_bound: int = UPPER_BOUND) -> int:
     """
     sum_of_squares = 0
     for n in range(1, upper_bound+1):
-        sum_of_squares += n**2
+        sum_of_squares = sum_of_squares + n**2
 
     square_of_sum = sum_1_to_n(upper_bound)**2
 

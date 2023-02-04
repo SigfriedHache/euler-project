@@ -22,16 +22,15 @@ import numpy as np
 
 from Common.Logger import get_logger, init_logger
 from Common.Utilities import performance_run
-from Common.Numbers import divisors
+from Common.Numbers import factorization, nth_triangular_number
 
 PERFORMANCE_RUNS = 10
 DIVISOR_COUNT = 500
 
-# def fastest(...) -> ...:
-#     """
-#     :return: ...
-#     """
-#     return ...
+
+def fastest(*args, **kwargs) -> int:
+    """ This is the fastest function that finds the largest product in a grid series """
+    return generative(*args, **kwargs)
 
 
 def generative(divisor_count: int = DIVISOR_COUNT) -> int:
@@ -45,30 +44,29 @@ def generative(divisor_count: int = DIVISOR_COUNT) -> int:
     i = 0
     number = 0
     while len(divisor_list) < divisor_count:
-        i += 1
-        number += i
-        divisor_list = divisors(number)
+        i = i + 1
+        number = number + i
+        divisor_list = factorization(number)
     return number
 
 
 def predictive(divisor_count: int = DIVISOR_COUNT) -> int:
     """
-    This method jumps ahead to a triangular number that could viable contain the number of divisors that are being
+    This method jumps ahead to a triangular number that could viably contain the number of divisors that are being
     sought in the answer.
     :param divisor_count: This is the minimum number of divisors criteria that the solution has to find
     :return: This is the number that satisfies the minimum number of divisors criteria
     """
-    n = int((1 + np.sqrt(8*divisor_count + 1)) / 2)
-    n -= 1  # This primes the algorithm to start at the correct value
-    triangular_number = 0
     divisor_list = []
+    i = ((1 + int(np.sqrt(8*divisor_count + 1))) // 2) - 1  # This primes the algorithm to start at further-along value
+    number = nth_triangular_number(i)
 
     while len(divisor_list) < divisor_count:
-        n += 1
-        triangular_number = int(n*(n+1)/2)
-        divisor_list = divisors(triangular_number)
+        i = i + 1
+        number = number + i
+        divisor_list = factorization(number)
 
-    return triangular_number
+    return number
 
 
 if __name__ == "__main__":
@@ -79,3 +77,4 @@ if __name__ == "__main__":
     # Performance run for fastest
     performance_run(generative, iterations=PERFORMANCE_RUNS)()
     performance_run(predictive, iterations=PERFORMANCE_RUNS)()
+    # print(fastest())

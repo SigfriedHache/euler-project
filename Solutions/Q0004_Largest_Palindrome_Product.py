@@ -32,7 +32,7 @@ def full_search() -> int:
         for j in range(y, floor, -1):
             palindrome_candidate = i * j
             if is_palindrome(palindrome_candidate):
-                palindromes += [palindrome_candidate]
+                palindromes = palindromes + [palindrome_candidate]
 
     return max(palindromes)
 

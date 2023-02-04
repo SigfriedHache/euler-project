@@ -57,9 +57,9 @@ GRID = ((8,   2, 22, 97, 38, 15,  0, 40,  0, 75,  4,  5,  7, 78, 52, 12, 50, 77,
         (1,  70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52,  1, 89, 19, 67, 48))
 
 
-def fastest(grid: Tuple[Tuple[int, ...], ...] = GRID, length: int = LENGTH) -> int:
+def fastest(*args, **kwargs) -> int:
     """ This is the fastest function that finds the largest product in a grid series """
-    return full_product_search(grid, length)
+    return full_product_search(*args, **kwargs)
 
 
 def full_product_search(grid: Tuple[Tuple[int, ...], ...] = GRID, length: int = LENGTH) -> int:
