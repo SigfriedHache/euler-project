@@ -12,3 +12,10 @@ def is_palindrome(value: Union[str, int, float]) -> bool:
     for digit in value:
         reversed_value = digit + reversed_value
     return True if reversed_value == value else False
+
+
+def yield_fib():
+    a, b = 1, 1
+    while True:
+        yield a
+        a, b = b, a + b
